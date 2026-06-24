@@ -18,3 +18,12 @@ jobs:
         run: |
           echo "Add other actions to build,"
           echo "test, and deploy your project."
+          
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.3
+
+      - name: Terraform init
+        uses: comu2e/tfnotify-composite-action@1.0.4
+
+      - name: terraform-plan
+        uses: dflook/terraform-plan@v1.29.1
