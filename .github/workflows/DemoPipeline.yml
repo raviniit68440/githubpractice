@@ -14,11 +14,4 @@ jobs:
       - name: Run a one-line script
         run: echo "Hello, world!"
           
-      - name: HashiCorp - Setup Terraform
-        uses: hashicorp/setup-terraform@v2.0.3
-
-      - name: Terraform init
-        uses: comu2e/tfnotify-composite-action@1.0.4
-
-      - name: terraform-plan
-        uses: dflook/terraform-plan@v1.29.1
+  
