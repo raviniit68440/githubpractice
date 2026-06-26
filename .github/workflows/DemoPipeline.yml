@@ -1,4 +1,4 @@
-name: CI
+name: DemoPipeline
 
 on:
   workflow_dispatch:
