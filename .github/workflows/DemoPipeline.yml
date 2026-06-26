@@ -6,12 +6,20 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v2
+      - name: Terraform Init
+        run: terraform init
+        shell: bash
+      - name: Terraform Validate
+        run: terraform validate
+        shell: bash
 
-      - name: Run a one-line script
-        run: echo "Hello, world!"
-          
-  
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+        shell: bash
+
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve tfplan
+      #   shell: bash 
