@@ -4,22 +4,61 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  init:
     runs-on: self-hosted
+
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v2
+
       - name: Terraform Init
         run: terraform init
         shell: bash
+
+  validate:
+    needs: init
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
+        shell: bash
+
       - name: Terraform Validate
         run: terraform validate
+        shell: bash
+
+  plan:
+    needs: validate
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
         shell: bash
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         shell: bash
 
+  apply:
+    needs: plan
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
+        shell: bash
+
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
-        shell: bash 
+        run: terraform apply -auto-approve
+        shell: bash
